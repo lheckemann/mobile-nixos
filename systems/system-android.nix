@@ -103,6 +103,8 @@ in
     programs.command-not-found.enable = false;
     system.boot.loader.kernelFile = lib.mkForce "Image";
     services.nixosManual.enable = lib.mkOverride 0 false;
+    nix.checkConfig = false;
+    services.klogd.enable = false;
 
     nixpkgs.crossSystem = mobile_config.nixpkgs.crossSystem;
     system.nixos.stateVersion = "18.09";
