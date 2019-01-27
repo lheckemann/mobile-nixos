@@ -9,7 +9,8 @@
     date = "";
     dtb = "";
     modules_initfs = "";
-    arch = "aarch64";
+    arch = "armv7a";
+    #arch = "aarch64";
     keyboard = false;
     external_storage = true;
     screen_width = "1080";
@@ -20,7 +21,8 @@
     flash_method = "fastboot";
     kernel_cmdline = "console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=350M buildvariant=userdebug";
     generate_bootimg = true;
-    bootimg_qcdt = true;
+    #bootimg_qcdt = true;
+    bootimg_qcdt = false;
     flash_offset_base = "0x80000000";
     flash_offset_kernel = "0x00008000";
     flash_offset_ramdisk = "0x01000000";

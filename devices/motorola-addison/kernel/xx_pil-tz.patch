@@ -1,0 +1,14 @@
+diff --git a/drivers/soc/qcom/subsys-pil-tz.c b/drivers/soc/qcom/subsys-pil-tz.c
+index e1902cdc5f7c..784e5cb552d1 100644
+--- a/drivers/soc/qcom/subsys-pil-tz.c
++++ b/drivers/soc/qcom/subsys-pil-tz.c
+@@ -842,9 +842,6 @@ static int subsys_powerup(const struct subsys_desc *subsys)
+ 	struct pil_tz_data *d = subsys_to_data(subsys);
+ 	int ret = 0;
+ 
+-	pr_info("[%s]: %s powerd up in %s(%d)\n", __func__,
+-		 d->subsys_desc.name, current->comm, current->pid);
+-
+ 	if (subsys->stop_ack_irq)
+ 		reinit_completion(&d->stop_ack);
+ 

@@ -16,14 +16,17 @@
 # Then in turn inspired by the postmarketos APKBUILDs.
 
 let
-  modDirVersion = "3.18.71";
+  modDirVersion = "3.18.63";
+  #modDirVersion = "3.18.71";
 
   version = "${modDirVersion}";
   src = fetchFromGitHub {
     owner = "LineageOS";
     repo = "android_kernel_motorola_msm8953";
-    rev = "80530de6e297dd0f0ba479c0dcc4ddb7c9e90e24"; # lineage-15.1
-    sha256 = "0qw8x61ycpkk5pqvs9k2abr5lq56ga5dml6vkygvmi8psm2g6kg1";
+    #rev = "80530de6e297dd0f0ba479c0dcc4ddb7c9e90e24"; # lineage-15.1
+    #sha256 = "0qw8x61ycpkk5pqvs9k2abr5lq56ga5dml6vkygvmi8psm2g6kg1";
+    rev = "b5f9dfc455391aee379d98cc7dd96b3b202cd626"; # cm-14.1
+    sha256 = "1j1w8r57p8bkkdbriivga0n7b2n3qjr7wh12zxxnzv7frh6sqqjv";
   };
   ## Based on https://github.com/Alberto97/android_kernel_motorola_msm8953/tree/pie
   #src = fetchFromGitHub {
@@ -33,10 +36,13 @@ let
   #  sha256 = "13xmcajb51klqb3ma084xj2bidz0dfb312ci8fk6ii9hq6gd30f0";
   #};
   patches = [
-    ./04_fix_camera_msm_isp.patch
+    ./01_fix_gcc6_errors.patch
+    #./04_fix_camera_msm_isp.patch
     ./05_misc_msm_fixes.patch
-    ./06_prima_gcc6.patch
+    #./06_prima_gcc6.patch
     ./99_framebuffer.patch
+./90_dtbs-install.patch
+./xx_pil-tz.patch
   ];
   postPatch = ''
     patchShebangs .
@@ -55,13 +61,16 @@ let
   '';
 
   additionalInstall = ''
-    # Generate master DTB (deviceinfo_bootimg_qcdt)
-    echo "Generating master DTB"
-    ${dtbTool}/bin/dtbTool -s 2048 -p "scripts/dtc/" -o "arch/arm64/boot/dt.img" "$out/dtbs/qcom/"
-
     mkdir -p "$out/boot"
-    cp "arch/arm64/boot/dt.img" \
-             "$out/boot/dt.img"
+
+    # Copies all potential output files.
+    for f in zImage-dtb Image.gz-dtb zImage Image.gz Image; do
+      f=arch/arm/boot/$f
+      [ -e "$f" ] || continue
+      echo "zImage found: $f"
+      cp -v "$f" "$out/"
+      break
+    done
 
     # Copies the dtb, could always be useful.
     mkdir -p $out/dtb
@@ -69,12 +78,9 @@ let
       cp -v "$f" $out/dtb/
     done
 
-    # Finally, makes Image.gz-dtb image ourselves.
-    # Somehow the build system has issues.
-    (
-    cd $out
-    cat Image.gz dtb/*.dtb > vmlinuz-dtb
-    )
+    # Copies the .config file to output.
+    # Helps ensuring sanity.
+    #cp -v .config $out/src.config
   '';
 in
 let
@@ -104,7 +110,8 @@ let
 
     buildPhase = ''
       echo "building config file"
-      cp -v ${./config-motorola-addison.aarch64} .config
+      cp -v ${./config-motorola-addison.armhf} .config
+      #cp -v $#{./config-motorola-addison.aarch64} .config
       yes "" | make $makeFlags "''${makeFlagsArray[@]}" oldconfig || :
     '';
 

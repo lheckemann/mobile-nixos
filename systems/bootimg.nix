@@ -11,7 +11,7 @@ let
   device_info = device_config.info;
   with_qcdt = device_info ? bootimg_qcdt && device_info.bootimg_qcdt;
   linux = device_info.kernel;
-  kernel = ''${linux}/vmlinuz${if with_qcdt then "-dtb" else ""}'';
+  kernel = ''${linux}/zImage${if with_qcdt then "-dtb" else ""}'';
   dt = "${linux}/boot/dt.img";
 
   # TODO : Allow appending / prepending

@@ -33,7 +33,8 @@ in
     }
     {
       mobile = mkIf cfg.qualcomm-msm8953.enable {
-        system.platform = "aarch64-linux";
+        system.platform = "armv7a-linux";
+        #system.platform = "aarch64-linux";
         quirks.qualcomm.msm-fb-handle.enable = true;
       };
     }
