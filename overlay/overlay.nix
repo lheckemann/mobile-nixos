@@ -85,4 +85,6 @@ in
         input: input != self.valgrind-light
       ) oldAttrs.buildInputs;
     });
+
+    u-boot = callPackage ./u-boot { };
  }
