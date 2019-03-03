@@ -78,7 +78,7 @@ let
   }));
 
   configfile = stdenv.mkDerivation {
-    name = "android-asus-z00t-config-${modDirVersion}";
+    name = "kernel-pine-a64-lts-config-${modDirVersion}";
     inherit version;
     inherit src patches postPatch;
     nativeBuildInputs = [bison flex];
