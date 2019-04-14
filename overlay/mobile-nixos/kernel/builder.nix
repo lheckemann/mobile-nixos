@@ -47,7 +47,7 @@ in
 # FIXME : Not used anymore...
 , dtb ? null
 , kernelPatches ? []
-, patches
+, patches ? []
 
 # Part of the "API" of the kernel builder.
 # Image builders expect this attribute to know where to find the kernel file.
