@@ -48,6 +48,7 @@ in
 , dtb ? null
 , kernelPatches ? []
 , patches ? []
+, postPatch ? ""
 
 # Part of the "API" of the kernel builder.
 # Image builders expect this attribute to know where to find the kernel file.
@@ -129,6 +130,7 @@ stdenv.mkDerivation {
         --replace NIXOS_RANDSTRUCT_SEED \
         $(echo ${src} ${configfile} | sha256sum | cut -d ' ' -f 1 | tr -d '\n')
     fi
+    ${postPatch}
   '';
 
   configurePhase = ''
