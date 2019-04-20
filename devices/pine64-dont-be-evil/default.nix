@@ -51,7 +51,7 @@
       kernelPatches = [];
       #kernelPatches = pkgs.defaultKernelPatches;
     };
-    dtb = "${kernel}/dtbs/allwinner/sun50i-a64-sopine-baseboard.dtb";
+    dtb = "${kernel}/dtbs/allwinner/sun50i-a64-dontbeevil.dtb";
   };
   mobile.hardware = {
     soc = "allwinner-r18";

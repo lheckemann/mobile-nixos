@@ -17,7 +17,7 @@ mobile-nixos.kernel-builder {
   src = fetchFromGitLab {
     owner = "pine64-org";
     repo = "linux";
-    rev = "a91169202e61c4876dde06a5548d76a385306d05";
-    sha256 = "1p6vml453n2ghaw93qgy6qyysfbpnfs529y60243lgr5slx9xr0m";
+    rev = "ca3ce0ecd672a9fd5ca9419e79769201c4d8697d";
+    sha256 = "19izwc3b7cggawlabslrcd2xwmrjna8slbpyy4yp7zf6by377sj9";
   };
 }
