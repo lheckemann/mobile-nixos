@@ -27,6 +27,11 @@ in
       default = false;
       description = "enable when SOC is SDM660";
     };
+    hardware.socs.qualcomm-msm8974.enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "enable when SOC is msm8974";
+    };
   };
 
   config = mkMerge [
@@ -50,6 +55,11 @@ in
     }
     {
       mobile = mkIf cfg.qualcomm-apq8064-1aa.enable {
+        system.platform = "armv7a-linux";
+      };
+    }
+    {
+      mobile = mkIf cfg.qualcomm-msm8974.enable {
         system.platform = "armv7a-linux";
       };
     }
