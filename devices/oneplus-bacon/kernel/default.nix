@@ -11,15 +11,15 @@
   file = "zImage";
   src = fetchFromGitHub {
     owner = "LineageOS";
-    repo = "android_kernel_oneplus_msm8974";
-    rev = "dd65620ba04a8c6ba0e30553c9c95388daefae02";
-    sha256 = "13zfa7wr38i3phy145i2hz1v70ycgqicdzzkcfv0yyy6kjxnnsd7";
+    repo = "android_kernel_oppo_msm8974";
+    rev = "aa55f9814659a4642a9a7f3541d3d8dc4007b5e9";
+    sha256 = "0ss651fxmzs58b1s9nqvgg92lh6c9w2a3x3zarf4n9h16nzr3aps";
   };
 
   patches = [
-    ./0001-fix-video-argb-setting.patch
-    ./02_gpu-msm-fix-gcc5-compile.patch
-    ./mdss_fb_refresh_rate.patch
+    #./0001-fix-video-argb-setting.patch
+    #./02_gpu-msm-fix-gcc5-compile.patch
+    #./mdss_fb_refresh_rate.patch
   ];
 
   isModular = false;
