@@ -1,0 +1,136 @@
+diff --git a/arch/arm/mach-msm/ext-buck-control.c b/arch/arm/mach-msm/ext-buck-control.c
+index e141bc9d..e0c349a9 100644
+--- a/arch/arm/mach-msm/ext-buck-control.c
++++ b/arch/arm/mach-msm/ext-buck-control.c
+@@ -100,7 +100,7 @@ static int msm_ext_buck_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static struct of_device_id msm_ext_buck_table[] __initdata = {
++static struct of_device_id msm_ext_buck_table[] = {
+ 	{.compatible = "qcom,ext-buck-control"},
+ 	{},
+ };
+diff --git a/arch/arm/mach-msm/gdsc.c b/arch/arm/mach-msm/gdsc.c
+index ae442db8..6fbfc474 100644
+--- a/arch/arm/mach-msm/gdsc.c
++++ b/arch/arm/mach-msm/gdsc.c
+@@ -274,7 +274,7 @@ static int __devexit gdsc_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static struct of_device_id gdsc_match_table[] __initdata = {
++static struct of_device_id gdsc_match_table[] = {
+ 	{ .compatible = "qcom,gdsc" },
+ 	{}
+ };
+diff --git a/arch/arm/mach-msm/krait-regulator-pmic.c b/arch/arm/mach-msm/krait-regulator-pmic.c
+index fa37949b..2f4185ee 100644
+--- a/arch/arm/mach-msm/krait-regulator-pmic.c
++++ b/arch/arm/mach-msm/krait-regulator-pmic.c
+@@ -72,7 +72,7 @@ struct krait_vreg_pmic_chip {
+ 
+ static struct krait_vreg_pmic_chip *the_chip;
+ 
+-static struct of_device_id krait_vreg_pmic_match_table[] __initdata = {
++static struct of_device_id krait_vreg_pmic_match_table[] = {
+ 	{ .compatible = KRAIT_REG_PMIC_DEV_NAME },
+ 	{}
+ };
+diff --git a/arch/arm/mach-msm/krait-regulator.c b/arch/arm/mach-msm/krait-regulator.c
+index 85713f2c..b0a1a7c7 100644
+--- a/arch/arm/mach-msm/krait-regulator.c
++++ b/arch/arm/mach-msm/krait-regulator.c
+@@ -1400,7 +1400,7 @@ static int __devexit krait_power_remove(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
+-static struct of_device_id krait_power_match_table[] __initdata = {
++static struct of_device_id krait_power_match_table[] = {
+ 	{ .compatible = "qcom,krait-regulator", },
+ 	{}
+ };
+@@ -1415,7 +1415,7 @@ static struct platform_driver krait_power_driver = {
+ 	},
+ };
+ 
+-static struct of_device_id krait_pdn_match_table[] __initdata = {
++static struct of_device_id krait_pdn_match_table[] = {
+ 	{ .compatible = "qcom,krait-pdn", },
+ 	{}
+ };
+diff --git a/arch/arm/mach-msm/lpm_levels.c b/arch/arm/mach-msm/lpm_levels.c
+index 2634db9a..74f888dd 100644
+--- a/arch/arm/mach-msm/lpm_levels.c
++++ b/arch/arm/mach-msm/lpm_levels.c
+@@ -1117,7 +1117,7 @@ fail:
+ 	return -EFAULT;
+ }
+ 
+-static struct of_device_id cpu_modes_mtch_tbl[] __initdata = {
++static struct of_device_id cpu_modes_mtch_tbl[] = {
+ 	{.compatible = "qcom,cpu-modes"},
+ 	{},
+ };
+@@ -1131,7 +1131,7 @@ static struct platform_driver cpu_modes_driver = {
+ 	},
+ };
+ 
+-static struct of_device_id system_modes_mtch_tbl[] __initdata = {
++static struct of_device_id system_modes_mtch_tbl[] = {
+ 	{.compatible = "qcom,system-modes"},
+ 	{},
+ };
+@@ -1145,7 +1145,7 @@ static struct platform_driver system_modes_driver = {
+ 	},
+ };
+ 
+-static struct of_device_id lpm_levels_match_table[] __initdata = {
++static struct of_device_id lpm_levels_match_table[] = {
+ 	{.compatible = "qcom,lpm-levels"},
+ 	{},
+ };
+diff --git a/arch/arm/mach-msm/msm-pm.c b/arch/arm/mach-msm/msm-pm.c
+index c0fefbca..df29f9df 100644
+--- a/arch/arm/mach-msm/msm-pm.c
++++ b/arch/arm/mach-msm/msm-pm.c
+@@ -991,7 +991,7 @@ static int msm_cpu_status_probe(struct platform_device *pdev)
+ 	return 0;
+ };
+ 
+-static struct of_device_id msm_slp_sts_match_tbl[] __initdata= {
++static struct of_device_id msm_slp_sts_match_tbl[] = {
+ 	{.compatible = "qcom,cpu-sleep-status"},
+ 	{},
+ };
+@@ -1005,7 +1005,7 @@ static struct platform_driver msm_cpu_status_driver = {
+ 	},
+ };
+ 
+-static struct of_device_id msm_snoc_clnt_match_tbl[] __initdata = {
++static struct of_device_id msm_snoc_clnt_match_tbl[] = {
+ 	{.compatible = "qcom,pm-snoc-client"},
+ 	{},
+ };
+@@ -1272,7 +1272,7 @@ static int msm_cpu_pm_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static struct of_device_id msm_cpu_pm_table[] __initdata = {
++static struct of_device_id msm_cpu_pm_table[] = {
+ 	{.compatible = "qcom,pm-8x60"},
+ 	{},
+ };
+diff --git a/arch/arm/mach-msm/rpm-smd.c b/arch/arm/mach-msm/rpm-smd.c
+index 756cc2c9..ae79a479 100644
+--- a/arch/arm/mach-msm/rpm-smd.c
++++ b/arch/arm/mach-msm/rpm-smd.c
+@@ -1454,7 +1454,7 @@ fail:
+ 	return probe_status;
+ }
+ 
+-static struct of_device_id msm_rpm_match_table[] __initdata =  {
++static struct of_device_id msm_rpm_match_table[] =  {
+ 	{.compatible = "qcom,rpm-smd"},
+ 	{},
+ };

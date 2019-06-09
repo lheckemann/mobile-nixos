@@ -20,6 +20,7 @@
     #./0001-fix-video-argb-setting.patch
     #./02_gpu-msm-fix-gcc5-compile.patch
     #./mdss_fb_refresh_rate.patch
+    ./0001-Section-mismatch.patch
   ];
 
   isModular = false;
