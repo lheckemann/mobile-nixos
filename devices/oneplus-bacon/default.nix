@@ -2,9 +2,10 @@
 
 {
   mobile.device.name = "oneplus-bacon";
-  mobile.device.info = (lib.importJSON ../postmarketOS-devices.json).oneplus-bacon // {
+  mobile.device.info = (lib.importJSON ../postmarketOS-devices.json).oneplus-bacon // rec {
     # TODO : make kernel part of options.
     kernel = pkgs.callPackage ./kernel { kernelPatches = pkgs.defaultKernelPatches; };
+    dtb = "${kernel}/dtbs/oneplus-bacon.img";
   };
   mobile.hardware = {
     #soc = "qualcomm-apq8064-1aa";

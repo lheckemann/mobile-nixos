@@ -2,6 +2,7 @@
   mobile-nixos
 , fetchFromGitHub
 , kernelPatches ? [] # FIXME
+, dtbTool
 }:
 
 (mobile-nixos.kernel-builder-gcc6 {
@@ -21,16 +22,21 @@
     ./02_gpu-msm-fix-gcc5-compile.patch
     ./mdss_fb_refresh_rate.patch
     ./0001-Section-mismatch.patch
+    ./90_dtbs-install.patch
   ];
 
   isModular = false;
 
 }).overrideAttrs({ postInstall ? "", postPatch ? "", ... }: {
-  installTargets = [ "zinstall" ];
+  installTargets = [ "zinstall" "dtbs" ];
   postPatch = postPatch + ''
     cp -v "${./compiler-gcc6.h}" "./include/linux/compiler-gcc6.h"
   '';
   postInstall = postInstall + ''
+    mkdir -p "$out/dtbs"
+    ${dtbTool}/bin/dtbTool -s 2048 -p "scripts/dtc/" -o "arch/arm/boot/oneplus-bacon.img" "arch/arm/boot/"
+    cp "arch/arm/boot/oneplus-bacon.img" "$out/dtbs/oneplus-bacon.img"
+
     mkdir -p "$out/boot"
 
     # FIXME factor this out properly
