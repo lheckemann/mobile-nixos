@@ -1,7 +1,7 @@
 # This entry points allows calling `nix-build -A` with
 # anything defined in the overlay (or the host system).
 {
-  device
+  device ? builtins.getEnv "MOBILE_NIXOS_DEVICE"
 }:
 with import <nixpkgs> {};
 let
@@ -18,6 +18,7 @@ let
 in
 {
   inherit (eval.config.system.build) all;
+  inherit (eval) config;
 
   # Shortcut to allow building `nixos` from the same channel revision.
   # This is used by `./nixos/default.nix`
