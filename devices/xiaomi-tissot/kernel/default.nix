@@ -13,4 +13,19 @@
     sha256 = "13p326acpyqvlh5524bvy2qkgzgyhwxgy0smlwmcdl6y7yi04rg5";
   };
   isModular = false;
+}).overrideAttrs ({ postInstall ? "", postPatch ? "", ...}: {
+  postInstall = postInstall + ''
+    mkdir -p "$out/boot"
+    for f in zImage-dtb Image.gz-dtb zImage Image.gz Image; do
+      f=arch/arm/boot/$f
+      [ -e "$f" ] || continue
+      echo "zImage found: $f"
+      cp -v "$f" "$out/"
+      break
+    done
+    mkdir -p $out/dtb
+    for f in arch/*/boot/dts/*.dtb; do
+      cp -v "$f" $out/dtb/
+    done
+  '';
 })
