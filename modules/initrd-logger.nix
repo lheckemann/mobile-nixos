@@ -23,6 +23,7 @@ in
         Do note that this only adds `/init.log` to `targets`.
       '';
     };
+
     targets = mkOption {
       type = types.listOf types.str;
       description = ''
@@ -34,6 +35,8 @@ in
         Add known serial consoles to device descriptions.
       '';
     };
+
+    trace = mkEnableOption "logging commands with set -x";
   };
 
   config.mobile.boot.stage-1 = mkMerge [
@@ -87,6 +90,13 @@ in
           # Kill the process
           kill $(cat ${pidfile})
         }
+      '');
+    }
+
+    {
+      init = lib.mkIf cfg.trace (mkOrder (DEVICE_INIT + 3) ''
+        PS4="$"
+        set -x
       '');
     }
   ];
