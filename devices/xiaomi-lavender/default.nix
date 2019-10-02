@@ -43,6 +43,9 @@
     flash_offset_tags = "0x00000100";
     flash_pagesize = "4096";
 
+    usb = {
+      rndis_f_name = "rndis_bam";
+    };
   };
   mobile.hardware = {
     soc = "qualcomm-sdm660";
