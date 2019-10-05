@@ -69,7 +69,7 @@ in
     screen = {
       inherit (MODE) height width;
     };
-    ram = 512;
+    ram = 1024 * 2;
   };
 
   mobile.system.type = "kernel-initrd";
