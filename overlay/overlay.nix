@@ -82,6 +82,13 @@ in
       kernel-builder-gcc6 = callPackage ./mobile-nixos/kernel/builder.nix {
         stdenv = with self; overrideCC stdenv buildPackages.gcc6;
       };
+      kernel-builder-gcc49 = callPackage ./mobile-nixos/kernel/builder.nix {
+        stdenv = with self; overrideCC stdenv buildPackages.gcc49;
+      };
+
+      virtualization = {
+        bios = callPackage ./seabios {};
+      };
     };
 
     imageBuilder = callPackage ../lib/image-builder {};
