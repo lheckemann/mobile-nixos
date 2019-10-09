@@ -16,6 +16,7 @@
   ./initrd-base.nix
   ./initrd-devices.nix
   ./initrd-framebuffer.nix
+  ./initrd-growpart.nix
   ./initrd-kernel.nix
   ./initrd-logger.nix
   ./initrd-loop.nix
