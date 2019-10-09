@@ -126,6 +126,7 @@ in
 
       environment.systemPackages = with pkgs; [
         adapta-gtk-theme
+        breeze-icons
       ];
 
       fonts.fonts = with pkgs; [
