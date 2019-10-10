@@ -2,6 +2,7 @@
 
 let
   inherit (lib) mkForce;
+  system_type = config.mobile.system.type;
 
   # Why copy them all?
   # Because otherwise the wallpaper picker will default to /nix/store as a path
@@ -35,7 +36,7 @@ in
         enable = true;
 
         libinput.enable = true;
-        videoDrivers = [ "fbdev" ];
+        videoDrivers = lib.mkDefault [ "fbdev" ];
 
         # Automatically login as nixos.
         displayManager.slim = {
@@ -221,5 +222,15 @@ in
         '';
       };
     }
+
+    # FIXME : depthcharge is the wrong assumption.
+    # A better abstraction over the X11 stack is required within mobile-nixos.
+    # The qemu VM requirs the fbdev one to work as expcted.
+    # The android devices may have hwcomposer stuff coming.
+    (lib.mkIf (system_type == "depthcharge") {
+      services.xserver = {
+        videoDrivers = [ "modesetting" ];
+      };
+    })
   ];
 }
