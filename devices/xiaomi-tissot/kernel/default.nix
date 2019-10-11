@@ -13,7 +13,8 @@
     sha256 = "13p326acpyqvlh5524bvy2qkgzgyhwxgy0smlwmcdl6y7yi04rg5";
   };
   isModular = false;
-}).overrideAttrs ({ postInstall ? "", postPatch ? "", ...}: {
+}).overrideAttrs ({ postInstall ? "", postPatch ? "", makeFlags ? [], ...}: {
+  makeFlags = makeFlags ++ [ "dtbs" ];
   postInstall = postInstall + ''
     mkdir -p "$out/boot"
     for f in zImage-dtb Image.gz-dtb zImage Image.gz Image; do
@@ -24,7 +25,7 @@
       break
     done
     mkdir -p $out/dtb
-    for f in arch/*/boot/dts/*.dtb; do
+    for f in arch/*/boot/dts/*/*.dtb; do
       cp -v "$f" $out/dtb/
     done
   '';
