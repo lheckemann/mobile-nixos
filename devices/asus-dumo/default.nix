@@ -48,4 +48,6 @@
       symlink = "/lib/firmware/qca/rampatch_usb_00000302.bin";
     }
   ];
+  # There no rndis gadget configured yet for the gru platform.
+  mobile.boot.stage-1.networking.enable = false;
 }
