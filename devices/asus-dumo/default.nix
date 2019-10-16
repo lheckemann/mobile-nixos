@@ -47,6 +47,12 @@
       ''; in "${rampatch}";
       symlink = "/lib/firmware/qca/rampatch_usb_00000302.bin";
     }
+    {
+      object = let rampatch = pkgs.runCommandNoCC "nvm_usb_00000302.bin" {} ''
+        cp -prf "${pkgs.firmwareLinuxNonfree}/lib/firmware/qca/nvm_usb_00000302.bin" $out
+      ''; in "${rampatch}";
+      symlink = "/lib/firmware/qca/nvm_usb_00000302.bin";
+    }
   ];
   # There no rndis gadget configured yet for the gru platform.
   mobile.boot.stage-1.networking.enable = false;
