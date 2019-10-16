@@ -23,7 +23,12 @@ in
       ply-image --clear=0x"$color" /sad-phone.png
       >&2 echo "$code: $message"
       ''}
+      # FIXME: option for rebooting
+      >&2 echo "[Rebooting in 10 seconds]"
       sleep 10
+      >&2 echo "$code: $message"
+      hard-reboot
+
       exit 1
     }
   '';
