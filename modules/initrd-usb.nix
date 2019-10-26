@@ -32,19 +32,11 @@ in
         `android_usb` features to enable.
       '';
     };
-    adbd = mkOption {
-      type = types.bool;
-      default = system_type == "android";
-      description = ''
-        Enables adbd on the device.
-      '';
-    };
   };
 
   config.mobile.boot.stage-1 = lib.mkIf cfg.usb.enable {
     usb.features = []
       ++ optional cfg.networking.enable "rndis"
-      ++ optional cfg.usb.adbd "ffs"
     ;
 
     # FIXME : split into "old style" (/sys/class/android_usb/android0/) and
@@ -57,9 +49,6 @@ in
       SYS=/sys/class/android_usb/android0
 
       if [ -e "$SYS/enable" ]; then
-        mkdir -p /dev/usb-ffs/adb
-        mount -t functionfs adb /dev/usb-ffs/adb/
-
         printf "%s" "0"    > "$SYS/enable"
         printf "%s" "18D1" > "$SYS/idVendor"
         printf "%s" "D001" > "$SYS/idProduct"
@@ -99,13 +88,7 @@ in
         )
       fi
       echo "Finished setting up configfs"
-
-      # Always start adbd... what's the worst that could happen?
-      ${optionalString cfg.usb.adbd "adbd &\n"}
       )
     '';
-    extraUtils = with pkgs; []
-    ++ optional cfg.usb.adbd { package = adbd; extraCommand = "cp -fpv ${glibc.out}/lib/libnss_files.so.* $out/lib"; }
-    ;
   };
 }
