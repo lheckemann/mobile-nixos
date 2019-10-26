@@ -1,11 +1,10 @@
 { config, lib, pkgs, ... }:
 let
   inherit (config.mobile.device) name;
-  originalKernel = pkgs.callPackage ./kernel { kernelPatches = pkgs.defaultKernelPatches; };
 in {
   mobile.device.name = "xiaomi-tissot";
   mobile.device.info = (lib.importJSON ../postmarketOS-devices.json).${name} // {
-    kernel = originalKernel;
+    kernel = pkgs.callPackage ./kernel { kernelPatches = pkgs.defaultKernelPatches; };
     #dtb = "${kernel}/dtbs/msm8953-qrd-sku3-tissot.dtb";
   };
   mobile.hardware = {
@@ -16,5 +15,5 @@ in {
     };
   };
 
-  mobile.system.type = "android-bootimg";
+  mobile.system.type = "android";
 }

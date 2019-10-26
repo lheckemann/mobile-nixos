@@ -41,7 +41,7 @@ in
   ];
 
   makeFlags = [
-	"DTC_EXT=${dtc}/bin/dtc"
+    "DTC_EXT=${dtc}/bin/dtc"
   ];
 
   isModular = false;

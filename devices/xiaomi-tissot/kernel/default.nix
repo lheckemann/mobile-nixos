@@ -2,42 +2,43 @@
 , fetchFromGitHub
 , kernelPatches ? []
 , dtbTool
+, buildPackages
 }:
-
+let inherit (buildPackages) dtc; in
 (mobile-nixos.kernel-builder-gcc6 {
   version = "3.18.71";
   configfile = ./config;
-  dtb = "unknown";
   file = "Image.gz-dtb";
+  hasDTB = true;
   src = fetchFromGitHub {
     owner = "lineageos";
     repo = "android_kernel_xiaomi_msm8953";
     rev = "80cb3f607eb78280642c3b9b6e89f676e9c263bf";
     sha256 = "13p326acpyqvlh5524bvy2qkgzgyhwxgy0smlwmcdl6y7yi04rg5";
   };
+  patches = [
+    ../../xiaomi-lavender/kernel/0001-mobile-nixos-Workaround-selected-processor-does-not-.patch
+    ../../xiaomi-lavender/kernel/0003-arch-arm64-Add-config-option-to-fix-bootloader-cmdli.patch
+  ];
+
+  postPatch = ''
+    # Remove -Werror from all makefiles
+    local i
+    local makefiles="$(find . -type f -name Makefile)
+    $(find . -type f -name Kbuild)"
+    for i in $makefiles; do
+      sed -i 's/-Werror-/-W/g' "$i"
+      sed -i 's/-Werror//g' "$i"
+    done
+    echo "Patched out -Werror"
+  '';
+
+  makeFlags = [ "DTC_EXT=${dtc}/bin/dtc" ];
+
   isModular = false;
 }).overrideAttrs ({ postInstall ? "", postPatch ? "", ... }: {
-  installTargets = [ "zinstall" "Image.gz-dtb" "install" ];
+  installTargets = [ "Image.gz" "zinstall" "Image.gz-dtb" "install" ];
   postInstall = postInstall + ''
-    # FIXME : find proper make invocation.
-    cp arch/arm64/boot/Image.gz-dtb $out/
-    #set -x
-    # Generate master DTB (deviceinfo_bootimg_qcdt)
-    echo "Generating master DTB"
-    ${dtbTool}/bin/dtbTool -s 2048 -p "scripts/dtc/" -o "arch/arm64/boot/dt.img" "$out/dtbs/qcom/"
-
-    mkdir -p "$out/boot"
-    cp "arch/arm64/boot/dt.img" \
-             "$out/boot/dt.img"
-
-    # Copies the dtb, could always be useful.
-    (
-    mkdir -p $out/dtb
-    for prefix in / /qcom; do
-      for f in arch/*/boot/dts/$prefix/*.dtb; do
-        cp -v "$f" $out/dtb/$prefix
-      done
-    done
-    )
+    cp $buildRoot/arch/arm64/boot/Image.gz-dtb $out/
   '';
 })
