@@ -1,3 +1,4 @@
+CONFIG_CMDLINE_DROP_DANGEROUS_ANDROID_OPTIONS=y
 #
 # Automatically generated file; DO NOT EDIT.
 # Linux/arm64 3.18.71 Kernel Configuration
@@ -2738,7 +2739,7 @@ CONFIG_FB_CFB_IMAGEBLIT=y
 # CONFIG_FB_SVGALIB is not set
 # CONFIG_FB_MACMODES is not set
 # CONFIG_FB_BACKLIGHT is not set
-# CONFIG_FB_MODE_HELPERS is not set
+CONFIG_FB_MODE_HELPERS=y
 # CONFIG_FB_TILEBLITTING is not set
 
 #
@@ -2746,7 +2747,7 @@ CONFIG_FB_CFB_IMAGEBLIT=y
 #
 # CONFIG_FB_CIRRUS is not set
 # CONFIG_FB_PM2 is not set
-# CONFIG_FB_ARMCLCD is not set
+CONFIG_FB_ARMCLCD=y
 # CONFIG_FB_CYBER2000 is not set
 # CONFIG_FB_ASILIANT is not set
 # CONFIG_FB_IMSTT is not set
