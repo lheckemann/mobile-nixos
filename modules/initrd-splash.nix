@@ -41,7 +41,7 @@ in
     {
       init = lib.mkOrder BEFORE_FRAMEBUFFER_INIT ''
         show_splash() {
-          ply-image --clear=0xff0000 /$1.png > /dev/null 2>&1
+          ply-image --clear=0 /$1.png > /dev/null 2>&1
         }
       '';
       extraUtils = [
