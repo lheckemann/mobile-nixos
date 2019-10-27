@@ -17,7 +17,6 @@ let inherit (buildPackages) dtc; in
     sha256 = "13p326acpyqvlh5524bvy2qkgzgyhwxgy0smlwmcdl6y7yi04rg5";
   };
   patches = [
-    ../../xiaomi-lavender/kernel/0001-mobile-nixos-Workaround-selected-processor-does-not-.patch
     ../../xiaomi-lavender/kernel/0003-arch-arm64-Add-config-option-to-fix-bootloader-cmdli.patch
   ];
 
