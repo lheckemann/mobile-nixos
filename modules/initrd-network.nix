@@ -30,6 +30,13 @@ in
         IP address for the USB networking gadget.
       '';
     };
+    mac = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        MAC address for the USB networking gadget. If null, a MAC address will be randomly generated on each boot.
+      '';
+    };
   };
 
   config.mobile.boot.stage-1 = lib.mkIf cfg.enable {

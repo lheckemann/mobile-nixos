@@ -12,6 +12,7 @@ class Tasks::DHCPD < SingletonTask
   def run()
     @ip = Configuration["boot"]["networking"]["IP"]
     @hostIP = Configuration["boot"]["networking"]["hostIP"]
+    @mac = Configuration["boot"]["networking"]["mac"]
 
     # Pick the first interface available.
     @interface = INTERFACES.find do |name|
@@ -19,6 +20,10 @@ class Tasks::DHCPD < SingletonTask
     end
 
     log("Setting-up networking for #{@interface}")
+    if @mac
+      System.run("ip", "link", "set", @interface, "address", @mac)
+    end
+
     System.run("ifconfig", @interface, @ip)
 
     # Config file for udhcpd
