@@ -6,15 +6,15 @@
 }:
 let inherit (buildPackages) dtc; in
 (mobile-nixos.kernel-builder-gcc6 {
-  version = "3.18.71";
+  version = "3.18.140";
   configfile = ./config.aarch64;
   file = "Image.gz-dtb";
   hasDTB = true;
   src = fetchFromGitHub {
-    owner = "lineageos";
-    repo = "android_kernel_xiaomi_msm8953";
-    rev = "80cb3f607eb78280642c3b9b6e89f676e9c263bf";
-    sha256 = "13p326acpyqvlh5524bvy2qkgzgyhwxgy0smlwmcdl6y7yi04rg5";
+    owner = "android-linux-stable";
+    repo = "tissot";
+    rev = "b44882a26dc331f51417d0a9810c308f7bb82c4c";
+    sha256 = "0xa7y3shmlnwq70qr87l4myn2873945czlq7wk2aw1d9qd1b95j2";
   };
   patches = [
     ./99_framebuffer.patch
