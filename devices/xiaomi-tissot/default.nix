@@ -48,4 +48,11 @@
   ];
 
   mobile.system.type = "android";
+  # causes watchdog reboot
+  #mobile.quirks.qualcomm.wcnss-wlan.enable = true;
+
+  mobile.device.firmware = [(pkgs.runCommand "tissot-firmware" {} ''
+    mkdir -p $out/lib
+    cp -r ${./firmware} $out/lib/firmware
+  '')];
 }
